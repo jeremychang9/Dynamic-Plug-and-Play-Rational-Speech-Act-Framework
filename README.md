@@ -25,6 +25,154 @@ conda create -n DPPRSA python=3.8 -f environment.yml
 conda activate DPPRSA
 ```
 
+### Preprocessing Training Data
+1. Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
+2. Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
+3. cd /GenerationModel/
+4. bash RUN/prepare_strat_llama.sh, the dataset will be placed in /GenerationModel/DATA/strat_llama.strat_llama
+
+* Change the directories in the Json2txt.ipynb for your environment.
+* The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat_llama.json.
+* The preprocessing of the dataset is in /GenerationModel/inputters/strat_llama.py
+
+### Downloading Model (BlenderBot-small for Example)
+1. Download the BlenderBot-small model: https://huggingface.co/facebook/blenderbot_small-90M
+2. Place the model in the same directory.
+
+* You could use other models, but you need to maually change the configurations.
+
+### Training The Generation Model (BlenderBot)
+1. Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_pp.strat.
+```
+bash RUN/train_strat.sh
+```
+2. Change the file name of the checkpoint to your preference.
+
+The generation model can be infered with: bash RUN/infer_strat.sh.
+You can change GOLDEN_TRUTH in inputters/PARAMS.py to control whether use the golden strategy.
+
+3. Infer with the generation model.
+```
+bash RUN/infer_strat.sh
+```
+
+### Training The Generation Model (Llama)
+1. Download the model from: https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct
+2. Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_llama.strat_llama
+```
+bash RUN/train_strat_llama.sh
+```
+3. change the file name of the checkpoint to your preference.
+
+The generation model can be infered with: bash RUN/infer_strat_llama.sh.
+You can change GOLDEN_TRUTH in inputters/PARAMS.py to control whether use the golden strategy.
+
+4. Infer with the generation model.
+```
+bash RUN/infer_strat_llama.sh
+```
+
+### Training The Empathy Attrubute Model
+1. Go to the EmotionClassifier_head directory.
+```
+cd /EmotionClassifier_head/
+```
+2. Download the GoEmotion dataset: https://github.com/google-research/google-research/tree/master/goemotions/data
+3. Run the code to preprocess the dataset:GoEmotion_preprocess.ipynb
+4. Train the classifier.
+```
+bash train_emo_classifier.sh
+```
+
+* The attribute models are basically using generation model as encoder with classification head, you have to train the generation model first.
+* Change the settings in "train_emo_classifier.sh" based on your generation model.
+* The trained attribute model's setting can be found in /output_llama/GO_classifier_head_meta.json
+* The class_vocab dictionary is always different after you trained.
+
+### Training The Strategy Attrubute Model
+1. Go to the StrategyClassifier_head directory.
+```
+cd /StrategyClassifier_head/
+```
+2. Train the classifier.
+```
+bash train_str_classifier.sh
+```
+
+* The attribute models are basically using generation model as encoder with classification head, you have to train the generation model first.
+* Change the settings in train_str_classifier.shbased on your generation model.
+* The trained attribute model's setting can be found in /output_llama/ESC_classifier_head_meta.json
+* The class_vocab dictionary is always different after you trained.
+
+### Training PAGE
+1. Go to the PAGE directory.
+```
+cd /PAGE/
+```
+2. Train the ECE model.
+```
+run main.py
+```
+
+* You can download the original code from https://github.com/xiaojiegu/page
+* Analyze ESConv with PAGE: bash analysis
+* We found that the prediction of PAGE is inconsistant based on different version of transformers.
+* encoder.py is the original code of PAGE, and encoder_emo_classifier.py is the updated version I applied an pretrained emotion classifier.
+
+### Infering With DPPRSA (llama)
+1. Go to the GenerationModel directory.
+```
+cd /GenerationModel/
+```
+2. Response Generation with DPPRSA and the attribute models.
+
+You should manually change the following commands in the shell file before running it.
+* load_checkpoint: the location where you place your generation model.
+* num_iterations: the perturbation time DPPRSA performs.
+* emo_weight & str_weight: the base weighting of the attribute when neutral.
+* joint: whether you use the strategy.
+* gold: whether you use the golden strategy.
+* page: whether you activate DAWG.
+* rsa: whether you activate RSA inference.
+* verbosity: you can see the detail of the generation.
+* for_test_run: generate only one single response with detail.
+
+There are many commands remain redundant, they should be removed.
+
+Manually change the settings of attribute models in run_DPPRSA_llama_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_llama/ and EmotionClassifier_head/output_llama/
+
+This will run the full ablation study. (It will take a very very long time.)
+Better run the python file itself.
+```
+bash RUN/infer_strat_dpprsa_llama.sh
+```
+
+### Infering With DPPRSA (blenderbot)
+1. Go to the GenerationModel directory.
+```
+cd /GenerationModel/
+```
+2. Response Generation with DPPRSA and the attribute models.
+
+Manually change the settings of attribute models in run_DPPRSA_llama_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_llama/ and EmotionClassifier_head/output_llama/
+
+This will run the full ablation study. (It will take a very very long time.)
+Better run the python file itself.
+```
+bash RUN/infer_strat_dpprsa_llama.sh
+```
+
+### Experiment
+
+* Perturbation time
+```
+bash RUN/exp_pplm_ptime.sh
+```
+* Weighting
+```
+bash RUN/exp_pplm_weight.sh
+```
+
 ## Reference
 ```
 @article{chang2025pprsa,
