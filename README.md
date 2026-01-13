@@ -35,7 +35,7 @@ conda activate DPPRSA
 *The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat_llama.json.
 *The preprocessing of the dataset is in /GenerationModel/inputters/strat_llama.py
 
-### Download Model (BlenderBot-small Example)
+### Download Model (BlenderBot-small for Example)
 1.Download the BlenderBot-small model: https://huggingface.co/facebook/blenderbot_small-90M
 2.Place the model in the same directory.
 
@@ -72,10 +72,22 @@ You can change GOLDEN_TRUTH in inputters/PARAMS.py to control whether use the go
 bash RUN/infer_strat_llama.sh
 '''
 
-### Infering with the Generation Model (Llama)
+### Training The Empathy Attrubute Model
+1.Go to the EmotionClassifier_head directory.
 '''
-bash RUN/infer_strat_llama.sh
+cd /EmotionClassifier_head/
 '''
+2.Download the GoEmotion dataset: https://github.com/google-research/google-research/tree/master/goemotions/data
+3.Run the code to preprocess the dataset:GoEmotion_preprocess.ipynb
+4.Train the classifier.
+'''
+bash train_emo_classifier.sh
+'''
+
+*the attribute models are basically using generation model as encoder with classification head, you have to train the generation model first.
+*change the settings in "train_emo_classifier.sh" based on your generation model.
+*the trained attribute model's setting can be found in /output_llama/GO_classifier_head_meta.json
+*the class_vocab dictionary is always different after you trained.
 
 ## Reference
 ```
