@@ -1,0 +1,17 @@
+{
+  "model_name": "strat_llama",
+  "pretrained_model_path": "/datatank02/public_models/Llama-3.2-1B-Instruct/",
+  "custom_config_path": null,
+  "gradient_checkpointing": false,
+
+  "expanded_vocab": [
+    "[Question]",
+    "[Restatement or Paraphrasing]",
+    "[Reflection of feelings]",
+    "[Self-disclosure]",
+    "[Affirmation and Reassurance]",
+    "[Providing Suggestions]",
+    "[Information]",
+    "[Others]"
+  ]
+}
