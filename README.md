@@ -9,6 +9,10 @@ This is the PyTorch implementation of our work: **A Dynamic Plug-and-Play Ration
 
 The generated responses are located in the "generated_responses_txt" file.
 
+The codes are highly inspired by: 
+* https://github.com/thu-coai/Emotional-Support-Conversation/tree/main/codes_zcj
+* https://github.com/skywalker023/focused-empathy
+
 ## Abstract
 Traditional supervised fine-tuning or pipeline frameworks, while effective for overall language quality, provide limited control over nuanced response attributes. Moreover, fine-tuning LLMs often requires large-scale retraining for each new attribute or domain, creating a trade-off between adaptability and computational efficiency—especially in scenarios that demand real-time interaction like emotional support conversation. To address these issues, an integrated framework called **Dynamic Plug-and-Play Rational Speech Acts (DPPRSA)** was developed. This framework integrates two core ideas: (1) a dynamic attribute gating mechanism informed by Emotion Cause Entailment (ECE), which controls when and how different attributes are activated to improve coordination among multiple attributes, and (2) a Rational Speech Act (RSA) inference is employed to improve the efficiency of the iterative process, leading to faster response generation (7.07 seconds per response on average) and improved response quality. This unified design enables the dialogue system to dynamically adapt to users' needs by generating responses with varying attribute weightings. In other words, it leverages the Plug-and-Play nature of the framework, plugging in only the proper attributes for each response, even when multiple attributes are available. 
 
@@ -28,8 +32,14 @@ conda activate DPPRSA
 ### Preprocessing Training Data
 1. Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
 2. Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
-3. cd /GenerationModel/
-4. bash RUN/prepare_strat_llama.sh, the dataset will be placed in /GenerationModel/DATA/strat_llama.strat_llama
+3. Go to the GenerationModel directory.
+```
+cd /GenerationModel/
+```
+4. Preprocss the data, it will be placed in /GenerationModel/DATA/strat_llama.strat_llama
+```
+bash RUN/prepare_strat_llama.sh
+```
 
 * Change the directories in the Json2txt.ipynb for your environment.
 * The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat_llama.json.
