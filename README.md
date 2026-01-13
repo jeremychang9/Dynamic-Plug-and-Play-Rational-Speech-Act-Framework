@@ -123,7 +123,7 @@ cd /PAGE/
 ```
 2. Train the ECE model.
 ```
-run main.py
+python main.py
 ```
 
 * You can download the original code from https://github.com/xiaojiegu/page
