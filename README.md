@@ -18,6 +18,8 @@ Traditional supervised fine-tuning or pipeline frameworks, while effective for o
 
 ## Implementation
 
+<img width="677" height="341" alt="DPPRSA_overview" src="https://github.com/user-attachments/assets/b849b1e5-9c27-40dd-953c-d717f81dd53f" />
+
 ### System Requirements
 - Python 3.8
 - Pytorch 2.0.1
@@ -121,7 +123,7 @@ cd /PAGE/
 ```
 2. Train the ECE model.
 ```
-run main.py
+python main.py
 ```
 
 * You can download the original code from https://github.com/xiaojiegu/page
