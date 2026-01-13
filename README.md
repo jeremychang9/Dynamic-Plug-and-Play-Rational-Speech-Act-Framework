@@ -25,6 +25,58 @@ conda create -n DPPRSA python=3.8 -f environment.yml
 conda activate DPPRSA
 ```
 
+### Preprocess Training Data
+1.Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
+2.Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
+3.cd /GenerationModel/
+4.bash RUN/prepare_strat_llama.sh, the dataset will be placed in /GenerationModel/DATA/strat_llama.strat_llama
+
+*Change the directories in the Json2txt.ipynb for your environment.
+*The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat_llama.json.
+*The preprocessing of the dataset is in /GenerationModel/inputters/strat_llama.py
+
+### Download Model (BlenderBot-small Example)
+1.Download the BlenderBot-small model: https://huggingface.co/facebook/blenderbot_small-90M
+2.Place the model in the same directory.
+
+You could use other models,but you need to maually change the configurations.
+
+### Training The Generation Model (BlenderBot)
+1.Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_pp.strat.
+'''
+bash RUN/train_strat.sh
+'''
+2.Change the file name of the checkpoint to your preference.
+
+The generation model can be infered with: bash RUN/infer_strat.sh.
+You can change GOLDEN_TRUTH in inputters/PARAMS.py to control whether use the golden strategy.
+
+3.Infer with the generation model.
+'''
+bash RUN/infer_strat.sh
+'''
+
+### Training The Generation Model (Llama)
+1.Download the model from: https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct
+2.Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_llama.strat_llama
+'''
+bash RUN/train_strat_llama.sh
+'''
+3.change the file name of the checkpoint to your preference.
+
+The generation model can be infered with: bash RUN/infer_strat_llama.sh.
+You can change GOLDEN_TRUTH in inputters/PARAMS.py to control whether use the golden strategy.
+
+4.Infer with the generation model.
+'''
+bash RUN/infer_strat_llama.sh
+'''
+
+### Infering with the Generation Model (Llama)
+'''
+bash RUN/infer_strat_llama.sh
+'''
+
 ## Reference
 ```
 @article{chang2025pprsa,
