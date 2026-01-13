@@ -32,8 +32,14 @@ conda activate DPPRSA
 ### Preprocessing Training Data
 1. Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
 2. Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
-3. cd /GenerationModel/
-4. bash RUN/prepare_strat_llama.sh, the dataset will be placed in /GenerationModel/DATA/strat_llama.strat_llama
+3. Go to the GenerationModel directory.
+```
+cd /GenerationModel/
+```
+4. Preprocss the data, it will be placed in /GenerationModel/DATA/strat_llama.strat_llama
+```
+bash RUN/prepare_strat_llama.sh
+```
 
 * Change the directories in the Json2txt.ipynb for your environment.
 * The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat_llama.json.
