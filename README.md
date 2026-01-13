@@ -26,68 +26,68 @@ conda activate DPPRSA
 ```
 
 ### Preprocess Training Data
-1.Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
-2.Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
-3.cd /GenerationModel/
-4.bash RUN/prepare_strat_llama.sh, the dataset will be placed in /GenerationModel/DATA/strat_llama.strat_llama
+1. Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
+2. Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
+3. cd /GenerationModel/
+4. bash RUN/prepare_strat_llama.sh, the dataset will be placed in /GenerationModel/DATA/strat_llama.strat_llama
 
-*Change the directories in the Json2txt.ipynb for your environment.
-*The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat_llama.json.
-*The preprocessing of the dataset is in /GenerationModel/inputters/strat_llama.py
+* Change the directories in the Json2txt.ipynb for your environment.
+* The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat_llama.json.
+* The preprocessing of the dataset is in /GenerationModel/inputters/strat_llama.py
 
 ### Download Model (BlenderBot-small for Example)
-1.Download the BlenderBot-small model: https://huggingface.co/facebook/blenderbot_small-90M
-2.Place the model in the same directory.
+1. Download the BlenderBot-small model: https://huggingface.co/facebook/blenderbot_small-90M
+2. Place the model in the same directory.
 
-You could use other models,but you need to maually change the configurations.
+* You could use other models, but you need to maually change the configurations.
 
 ### Training The Generation Model (BlenderBot)
-1.Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_pp.strat.
-'''
+1. Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_pp.strat.
+```
 bash RUN/train_strat.sh
-'''
-2.Change the file name of the checkpoint to your preference.
+```
+2. Change the file name of the checkpoint to your preference.
 
 The generation model can be infered with: bash RUN/infer_strat.sh.
 You can change GOLDEN_TRUTH in inputters/PARAMS.py to control whether use the golden strategy.
 
-3.Infer with the generation model.
-'''
+3. Infer with the generation model.
+```
 bash RUN/infer_strat.sh
-'''
+```
 
 ### Training The Generation Model (Llama)
-1.Download the model from: https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct
-2.Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_llama.strat_llama
-'''
+1. Download the model from: https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct
+2. Train the model with strategy special tokens. The checkpoint will be saved in /GenerationModel/DATA/strat_llama.strat_llama
+```
 bash RUN/train_strat_llama.sh
-'''
-3.change the file name of the checkpoint to your preference.
+```
+3. change the file name of the checkpoint to your preference.
 
 The generation model can be infered with: bash RUN/infer_strat_llama.sh.
 You can change GOLDEN_TRUTH in inputters/PARAMS.py to control whether use the golden strategy.
 
-4.Infer with the generation model.
-'''
+4. Infer with the generation model.
+```
 bash RUN/infer_strat_llama.sh
-'''
+```
 
 ### Training The Empathy Attrubute Model
-1.Go to the EmotionClassifier_head directory.
-'''
+1. Go to the EmotionClassifier_head directory.
+```
 cd /EmotionClassifier_head/
-'''
-2.Download the GoEmotion dataset: https://github.com/google-research/google-research/tree/master/goemotions/data
-3.Run the code to preprocess the dataset:GoEmotion_preprocess.ipynb
-4.Train the classifier.
-'''
+```
+2. Download the GoEmotion dataset: https://github.com/google-research/google-research/tree/master/goemotions/data
+3. Run the code to preprocess the dataset:GoEmotion_preprocess.ipynb
+4. Train the classifier.
+```
 bash train_emo_classifier.sh
-'''
+```
 
-*the attribute models are basically using generation model as encoder with classification head, you have to train the generation model first.
-*change the settings in "train_emo_classifier.sh" based on your generation model.
-*the trained attribute model's setting can be found in /output_llama/GO_classifier_head_meta.json
-*the class_vocab dictionary is always different after you trained.
+* The attribute models are basically using generation model as encoder with classification head, you have to train the generation model first.
+* Change the settings in "train_emo_classifier.sh" based on your generation model.
+* The trained attribute model's setting can be found in /output_llama/GO_classifier_head_meta.json
+* The class_vocab dictionary is always different after you trained.
 
 ## Reference
 ```
