@@ -1,4 +1,4 @@
-# Dynamic-Plug-and-Play-Rational-Speech-Act-Framework
+# A Dynamic Plug-and-Play Rational Speech Act Framework for Emotional Support Dialogue System
 
 <img width="4044" height="2296" alt="figure1 2" src="https://github.com/user-attachments/assets/549214ed-169a-4137-94ec-627bc9c557a7" />
 
