@@ -18,7 +18,7 @@ Traditional supervised fine-tuning or pipeline frameworks, while effective for o
 
 ## Implementation
 
-<img width="677" height="341" alt="DPPRSA_overview" src="https://github.com/user-attachments/assets/b849b1e5-9c27-40dd-953c-d717f81dd53f" />
+<img width="1887" height="1023" alt="DPPRSA_overview" src="https://github.com/user-attachments/assets/ee17768c-6512-4f02-a3a5-cd6a3bf540d4" />
 
 ### System Requirements
 - Python 3.8
