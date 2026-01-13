@@ -24,3 +24,23 @@ Traditional supervised fine-tuning or pipeline frameworks, while effective for o
 conda create -n DPPRSA python=3.8 -f environment.yml
 conda activate DPPRSA
 ```
+
+## Reference
+```
+@article{chang2025pprsa,
+  title={PPRSA: A Plug-and-Play Language Model with Rational Speech Act Inference for Generating Empathetic and Engaging Dialogue Responses},
+  author={Chang, Jeremy and Wu, Chung-Hsien},
+  journal={IEEE Transactions on Audio, Speech and Language Processing},
+  year={2025},
+  publisher={IEEE}
+}
+```
+```
+@article{chang2025applying,
+  title={Applying Emotion-Cause Entailment for Help-Seeker Guidance in Emotional Support Conversations},
+  author={Chang, Jeremy and Wu, Chung-Hsien},
+  journal={IEEE Transactions on Computational Social Systems},
+  year={2025},
+  publisher={IEEE}
+}
+```
