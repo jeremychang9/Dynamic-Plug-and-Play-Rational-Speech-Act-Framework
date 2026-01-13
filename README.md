@@ -16,6 +16,8 @@ The codes are highly inspired by:
 ## Abstract
 Traditional supervised fine-tuning or pipeline frameworks, while effective for overall language quality, provide limited control over nuanced response attributes. Moreover, fine-tuning LLMs often requires large-scale retraining for each new attribute or domain, creating a trade-off between adaptability and computational efficiency—especially in scenarios that demand real-time interaction like emotional support conversation. To address these issues, an integrated framework called **Dynamic Plug-and-Play Rational Speech Acts (DPPRSA)** was developed. This framework integrates two core ideas: (1) a dynamic attribute gating mechanism informed by Emotion Cause Entailment (ECE), which controls when and how different attributes are activated to improve coordination among multiple attributes, and (2) a Rational Speech Act (RSA) inference is employed to improve the efficiency of the iterative process, leading to faster response generation (7.07 seconds per response on average) and improved response quality. This unified design enables the dialogue system to dynamically adapt to users' needs by generating responses with varying attribute weightings. In other words, it leverages the Plug-and-Play nature of the framework, plugging in only the proper attributes for each response, even when multiple attributes are available. 
 
+<img width="677" height="341" alt="DPPRSA_overview" src="https://github.com/user-attachments/assets/b849b1e5-9c27-40dd-953c-d717f81dd53f" />
+
 ## Implementation
 
 ### System Requirements
