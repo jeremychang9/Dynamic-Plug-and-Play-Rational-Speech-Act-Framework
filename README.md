@@ -153,9 +153,13 @@ python main.py
 ```
 cd /GenerationModel/
 ```
-2. Response Generation with DPPRSA and the attribute models.
 
-  You should manually change the following commands in the shell file before running it.
+2. Manually change the settings of attribute models in  run_DPPRSA_blenderbot_master.py/run_DPPRSA_llama_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_llama/ and EmotionClassifier_head/output_llama/
+
+3. Response Generation with DPPRSA and the attribute models.
+
+  You should manually change the following commands in the shell file before running it:
+  
 * load_checkpoint: the location where you place your generation model.
 * num_iterations: the perturbation time DPPRSA performs.
 * emo_weight & str_weight: the base weighting of the attribute when neutral.
@@ -186,29 +190,48 @@ CUDA_VISIBLE_DEVICES=0 python3 run_DPPRSA_llama_master.py \
     --rsa
 ```
 
-3. Manually change the settings of attribute models in  run_DPPRSA_blenderbot_master.py/run_DPPRSA_llama_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_llama/ and EmotionClassifier_head/output_llama/
-
-4. Strat generating responses with DPPRSA. 
-
-The following command will run the full ablation study. (It will take a very very long time.)
-```
-bash RUN/infer_strat_dpprsa_llama.sh
-```
+A generated response and a log file will be saved in the 'output' directory. Please note that the strategy accuracy in the current code still needs to be fixed; it does not reflect the accuracy results reported in our paper.
 
 ### Infering With DPPRSA (blenderbot)
 1. Go to the GenerationModel directory.
 ```
 cd /GenerationModel/
 ```
-2. Response Generation with DPPRSA and the attribute models.
+2. Manually change the settings of attribute models in run_DPPRSA_blenderbot_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_blenderbot/ and EmotionClassifier_head/output_blenderbot/
 
-Manually change the settings of attribute models in run_DPPRSA_llama_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_llama/ and EmotionClassifier_head/output_llama/
+3. Response Generation with DPPRSA and the attribute models.
 
-This will run the full ablation study. (It will take a very very long time.)
-Better run the python file itself.
-```
-bash RUN/infer_strat_dpprsa_llama.sh
-```
+  You should manually change the following commands in the shell file before running it:
+  
+* load_checkpoint: the location where you place your generation model.
+* num_iterations: the perturbation time DPPRSA performs.
+* emo_weight & str_weight: the base weighting of the attribute when neutral.
+* joint: whether you use the strategy.
+* gold: whether you use the golden strategy.
+* page: whether you activate DAWG.
+* rsa: whether you activate RSA inference.
+* verbosity: you can see the detail of the generation.
+* for_test_run: generate only one single response with detail.
+
+  There are many commands remain redundant, they should be removed.
+
+CUDA_VISIBLE_DEVICES=0 python3 run_DPPRSA_blenderbot_master.py \
+    --config_name strat \
+    --inputter_name strat_pp \
+    --load_checkpoint DATA/strat_pp.strat/2025-10-03012322.3e-05.16.1gpu/epoch-2.bin \
+    --infer_input_file ./_reformat/SUPPORTER/test.txt \
+    --verbosity quiet \
+    --sample \
+    --stepsize 0.02 \
+    --attribute_type all \
+    --num_iterations 2 \
+    --emo_weight 0.5 \
+    --str_weight 0.5 \
+    --joint \
+    --page \
+    --rsa
+
+A generated response and a log file will be saved in the 'output' directory. Please note that the strategy accuracy in the current code still needs to be fixed; it does not reflect the accuracy results reported in our paper.
 
 ### Experiment
 
@@ -219,6 +242,18 @@ bash RUN/exp_pplm_ptime.sh
 * Weighting
 ```
 bash RUN/exp_pplm_weight.sh
+```
+
+* Evaluation
+```
+CUDA_VISIBLE_DEVICES=0 python3 evaluation.py \
+    -pred_file output/DPPRSA.txt \
+    --infer_input_file ./_reformat/SUPPORTER/test.txt 
+```
+
+* Ablation study. (It will take a very very long time.)
+```
+bash RUN/infer_strat_dpprsa_llama.sh
 ```
 
 ## Reference
