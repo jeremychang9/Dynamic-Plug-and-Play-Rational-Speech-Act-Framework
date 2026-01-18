@@ -9,7 +9,7 @@ This is the PyTorch implementation of our work: **A Dynamic Plug-and-Play Ration
 
 The generated responses are located in the "output" file.
 
-The codes are highly inspired by: 
+Check out their work! The codes are highly inspired by: 
 * https://github.com/thu-coai/Emotional-Support-Conversation/tree/main/codes_zcj
 * https://github.com/skywalker023/focused-empathy
 
