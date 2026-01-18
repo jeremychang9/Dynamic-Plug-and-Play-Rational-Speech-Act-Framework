@@ -214,7 +214,8 @@ cd /GenerationModel/
 * for_test_run: generate only one single response with detail.
 
   There are many commands remain redundant, they should be removed.
-
+  
+```
 CUDA_VISIBLE_DEVICES=0 python3 run_DPPRSA_blenderbot_master.py \
     --config_name strat \
     --inputter_name strat_pp \
@@ -230,6 +231,7 @@ CUDA_VISIBLE_DEVICES=0 python3 run_DPPRSA_blenderbot_master.py \
     --joint \
     --page \
     --rsa
+```
 
 A generated response and a log file will be saved in the 'output' directory. Please note that the strategy accuracy in the current code still needs to be fixed; it does not reflect the accuracy results reported in our paper.
 
