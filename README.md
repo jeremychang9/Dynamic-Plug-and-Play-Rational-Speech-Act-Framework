@@ -258,6 +258,25 @@ CUDA_VISIBLE_DEVICES=0 python3 evaluation.py \
 bash RUN/infer_strat_dpprsa_llama.sh
 ```
 
+* Interact in real time (still needs to be improved):
+```
+CUDA_VISIBLE_DEVICES=0 python3 interact.py \
+    --config_name strat_llama \
+    --inputter_name strat_llama \
+    --load_checkpoint DATA/strat_llama.strat_llama/2025-09-14141406.5e-05.8.2gpu/epoch-3.bin \
+    --infer_input_file ./_reformat/SUPPORTER/test.txt \
+    --verbosity quiet \
+    --sample \
+    --stepsize 0.01 \
+    --attribute_type all \
+    --num_iterations 2 \
+    --emo_weight 0.5 \
+    --str_weight 0.5 \
+    --joint 
+    --rsa
+    --page
+```
+
 ## Reference
 ```
 @article{chang2025pprsa,
