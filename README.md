@@ -159,7 +159,7 @@ cd /GenerationModel/
 3. Response Generation with DPPRSA and the attribute models.
 
   You should manually change the following commands in the shell file before running it:
-  
+```
 * load_checkpoint: the location where you place your generation model.
 * num_iterations: the perturbation time DPPRSA performs.
 * emo_weight & str_weight: the base weighting of the attribute when neutral.
@@ -169,7 +169,7 @@ cd /GenerationModel/
 * rsa: whether you activate RSA inference.
 * verbosity: you can see the detail of the generation.
 * for_test_run: generate only one single response with detail.
-
+```
   There are many commands remain redundant, they should be removed.
 
 ```
@@ -202,7 +202,7 @@ cd /GenerationModel/
 3. Response Generation with DPPRSA and the attribute models.
 
   You should manually change the following commands in the shell file before running it:
-  
+```  
 * load_checkpoint: the location where you place your generation model.
 * num_iterations: the perturbation time DPPRSA performs.
 * emo_weight & str_weight: the base weighting of the attribute when neutral.
@@ -212,7 +212,7 @@ cd /GenerationModel/
 * rsa: whether you activate RSA inference.
 * verbosity: you can see the detail of the generation.
 * for_test_run: generate only one single response with detail.
-
+```
   There are many commands remain redundant, they should be removed.
   
 ```
