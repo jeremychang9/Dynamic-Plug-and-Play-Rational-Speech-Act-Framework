@@ -20,6 +20,8 @@ Traditional supervised fine-tuning or pipeline frameworks, while effective for o
 
 <img width="1887" height="1023" alt="DPPRSA_overview" src="https://github.com/user-attachments/assets/ee17768c-6512-4f02-a3a5-cd6a3bf540d4" />
 
+Our current implementation supports only **BlenderBot-small** and **Llama-3.2-1B-Instruct**. While code for other models is preserved, it remains untested and unmaintained. You will need to handle the integration yourself if you wish to implement other models, such as DialoGPT and BlenderBot-base.
+
 ### System Requirements
 - Python 3.8
 - Pytorch 2.0.1
@@ -30,8 +32,23 @@ Traditional supervised fine-tuning or pipeline frameworks, while effective for o
 conda create -n DPPRSA python=3.8 -f environment.yml
 conda activate DPPRSA
 ```
+### Preprocessing Training Data (BlenderBot)
+1. Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
+2. Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
+3. Go to the GenerationModel directory.
+```
+cd /GenerationModel/
+```
+4. Preprocss the data, it will be placed in /GenerationModel/DATA/strat_pp.strat
+```
+bash RUN/prepare_strat_blenderbot.sh
+```
 
-### Preprocessing Training Data
+* Change the directories in the Json2txt.ipynb for your environment.
+* The configuration of the model and the extension of special tokens is in /GenerationModel/CONFIG/strat.json.
+* The preprocessing of the dataset is in /GenerationModel/inputters/strat_pp.py
+
+### Preprocessing Training Data (Llama)
 1. Download the dataset from SUPPORTER: https://github.com/jfzhouyoo/Supporter/tree/master
 2. Run the code to convert the json file to txt: /GenerationModel\_reformat\SUPPORTER/Json2txt.ipynb
 3. Go to the GenerationModel directory.
@@ -138,7 +155,7 @@ cd /GenerationModel/
 ```
 2. Response Generation with DPPRSA and the attribute models.
 
-You should manually change the following commands in the shell file before running it.
+  You should manually change the following commands in the shell file before running it.
 * load_checkpoint: the location where you place your generation model.
 * num_iterations: the perturbation time DPPRSA performs.
 * emo_weight & str_weight: the base weighting of the attribute when neutral.
@@ -149,12 +166,31 @@ You should manually change the following commands in the shell file before runni
 * verbosity: you can see the detail of the generation.
 * for_test_run: generate only one single response with detail.
 
-There are many commands remain redundant, they should be removed.
+  There are many commands remain redundant, they should be removed.
 
-Manually change the settings of attribute models in run_DPPRSA_llama_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_llama/ and EmotionClassifier_head/output_llama/
+```
+CUDA_VISIBLE_DEVICES=0 python3 run_DPPRSA_llama_master.py \
+    --config_name strat_llama \
+    --inputter_name strat_llama \
+    --load_checkpoint DATA/strat_llama.strat_llama/2025-09-14141406.5e-05.8.2gpu/epoch-3.bin \
+    --infer_input_file ./_reformat/SUPPORTER/test.txt \
+    --verbosity quiet \
+    --sample \
+    --stepsize 0.01 \
+    --attribute_type $type \
+    --num_iterations 2 \
+    --emo_weight 0.5 \
+    --str_weight 0.5 \
+    --joint \
+    --page \
+    --rsa
+```
 
-This will run the full ablation study. (It will take a very very long time.)
-Better run the python file itself.
+3. Manually change the settings of attribute models in  run_DPPRSA_blenderbot_master.py/run_DPPRSA_llama_master.py, the settings can refer to the meta file located at: StrategyClassifier_head/output_llama/ and EmotionClassifier_head/output_llama/
+
+4. Strat generating responses with DPPRSA. 
+
+The following command will run the full ablation study. (It will take a very very long time.)
 ```
 bash RUN/infer_strat_dpprsa_llama.sh
 ```
