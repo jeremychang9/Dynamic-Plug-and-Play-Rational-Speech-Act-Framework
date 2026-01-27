@@ -7,6 +7,8 @@ This is the PyTorch implementation of our work: **A Dynamic Plug-and-Play Ration
 - **PPRSA: A Plug-and-Play Language Model with Rational Speech Act Inference for Generating Empathetic and Engaging Dialogue Responses**, IEEE Transactions on Audio, Speech and Language Processing, 2025.
 - **Applying Emotion-Cause Entailment for Help-Seeker Guidance in Emotional Support Conversations**, IEEE Transactions on Computational Social Systems, 2025.
 
+**I plan to upload the final integrated manuscript, which serves as my PhD dissertation, to arXiv in the near future.**
+
 The generated responses are located in the "output" file.
 
 Check out their work! The codes are highly inspired by: 
